@@ -9,4 +9,13 @@ fn main() {
         println!("r1 is: {}", *r1);
         println!("r2 is: {}", *r2);
     }
+
+    // Unsafe functions
+    unsafe fn dangerous() {}
+
+    // dangerous(); -> compile error
+
+    unsafe {
+        dangerous();
+    }
 }
