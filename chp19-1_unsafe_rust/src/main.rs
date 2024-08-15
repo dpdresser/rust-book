@@ -1,3 +1,5 @@
+static mut COUNTER: u32 = 0;
+
 fn main() {
     let mut num = 5;
 
@@ -25,6 +27,12 @@ fn main() {
     let (a, b) = split_at_mut(r, 3);
     assert_eq!(a, &mut [1, 2, 3]);
     assert_eq!(b, &mut [4, 5, 6]);
+
+    add_to_count(3);
+
+    unsafe {
+        println!("COUNTER: {COUNTER}"); // having multiple threads access COUNTER would likely result in data races
+    }
 }
 
 // Example of method in standard library, this first version won't compile
@@ -57,3 +65,9 @@ fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 
 // the fn split_at_mut isn't marked as unsafe, and we can call the function from safe Rust; we've created a safe abstraction to the
 // unsafe code
+
+fn add_to_count(inc: u32) {
+    unsafe {
+        COUNTER += inc;
+    }
+}
