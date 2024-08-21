@@ -1,0 +1,6 @@
+[package]
+name = "chp19-4_advanced_functions_and_closures"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
