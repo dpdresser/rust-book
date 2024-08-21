@@ -2,3 +2,5 @@ chp19-1_unsafe_rust/target/
 chp19-1_unsafe_rust/Cargo.lock
 chp19-2_advanced_traits/target/
 chp19-2_advanced_traits/Cargo.lock
+chp19-3_advanced_types/Cargo.lock
+chp19-3_advanced_types/target/
