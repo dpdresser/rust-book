@@ -1,3 +1,4 @@
+use std::fmt;
 use std::ops::Add;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -79,6 +80,34 @@ impl Animal for Dog {
     }
 }
 
+// Supertrait Example
+trait OutlinePrint: fmt::Display { // OutlinePrint trait requires implementation of fmt::Display trait
+    fn outline_print(&self) {
+        let output = self.to_string();
+        let len = output.len();
+        println!("{}", "*".repeat(len + 4));
+        println!("*{}*", " ".repeat(len + 2));
+        println!("* {output} *");
+        println!("*{}*", " ".repeat(len + 2));
+        println!("{}", "*".repeat(len + 4));
+    }
+}
+
+// Declared above
+
+// struct Point { 
+//     x: i32,
+//     y: i32,
+// }
+
+impl OutlinePrint for Point {}
+
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
 fn main() {
     assert_eq!(
         Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
@@ -100,5 +129,8 @@ fn main() {
     println!("A baby dog is called a... {}?", Dog::baby_name());
     println!("A baby dog is called a {}!", <Dog as Animal>::baby_name()); // Call the baby_name method from the Animal trait as implemented on Dog
                                                                           // i.e. treat Dog type as Animal for this function call
+    println!("");
+    let point = Point{ x: 3, y: 3 };
+    point.outline_print();
 }
 
