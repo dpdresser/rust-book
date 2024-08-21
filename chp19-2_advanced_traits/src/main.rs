@@ -108,6 +108,17 @@ impl fmt::Display for Point {
     }
 }
 
+// Newtype Pattern to Implement External Traits on External Types
+// Want to implement Display on Vec<T>, Display trait and Vec<T> type
+// are defined outside of our crate
+struct Wrapper(Vec<String>); // Wrapper struct holds an instance of Vec<T>
+
+impl fmt::Display for Wrapper {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[{}]", self.0.join(", "))
+    }
+}
+
 fn main() {
     assert_eq!(
         Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
@@ -132,5 +143,9 @@ fn main() {
     println!("");
     let point = Point{ x: 3, y: 3 };
     point.outline_print();
+    println!("");
+
+    let w = Wrapper(vec![String::from("hello"), String::from("world")]);
+    println!("w = {w}");
 }
 
