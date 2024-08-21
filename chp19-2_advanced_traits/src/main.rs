@@ -31,6 +31,54 @@ impl Add<Meters> for Millimeters { // Sets the value for the Rhs type parameter 
     }
 }
 
+// Fully Qualified Syntax - for methods
+trait Pilot {
+    fn fly(&self);
+}
+
+trait Wizard {
+    fn fly(&self);
+}
+
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&self) {
+        println!("This is your captain speaking.");
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&self) {
+        println!("Up!");
+    }
+}
+
+impl Human {
+    fn fly(&self) {
+        println!("*waving arms furiously*");
+    }
+}
+
+// Fully Qualified Syntax - for associated functions
+trait Animal {
+    fn baby_name() -> String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -> String {
+        String::from("Spot")
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -> String {
+        String::from("puppy")
+    }
+}
+
 fn main() {
     assert_eq!(
         Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
@@ -41,5 +89,16 @@ fn main() {
         Millimeters(5250),
         Millimeters(250) + Meters(5)
     );
+
+    let person = Human;
+    println!("");
+    Pilot::fly(&person);
+    Wizard::fly(&person);
+    person.fly();
+
+    println!("");
+    println!("A baby dog is called a... {}?", Dog::baby_name());
+    println!("A baby dog is called a {}!", <Dog as Animal>::baby_name()); // Call the baby_name method from the Animal trait as implemented on Dog
+                                                                          // i.e. treat Dog type as Animal for this function call
 }
 
