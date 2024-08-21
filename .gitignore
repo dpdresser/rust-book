@@ -8,3 +8,5 @@ chp19-4_advanced_functions_and_closures/Cargo.lock
 chp19-4_advanced_functions_and_closures/target/
 chp19-5_macros/Cargo.lock
 chp19-5_macros/target/
+hello/Cargo.lock
+hello/target/
